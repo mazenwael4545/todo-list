@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import TodoForm from './Components/TodoForm'
 import Todo from './Components/Todo';
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 const App = () => {
   let [todos, setTodos] = useState([]);
@@ -42,7 +43,9 @@ const App = () => {
   }
 
   return (
-    <div className="container">
+    <Router basename='/todo-list'>
+      <Route path='/' element={
+            <div className="container">
       <TodoForm onSubmit={addTodo} />
       <div className='tabs'>
         <button onClick={()=> setTodosToShow('all')}>all</button>
@@ -82,6 +85,10 @@ const App = () => {
         }}>toggle all complete {`${toggleAllComplete}`}</button>
       </div>
     </div>
+      } />
+      <Route path='*' element={<h2>there is no route like that</h2>} />
+    </Router>
+
   )
 }
 
